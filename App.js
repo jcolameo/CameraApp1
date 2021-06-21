@@ -3,6 +3,7 @@
 ** Beispiel wie man mit einer Kamera in React Native 
 */
 
+import Video from 'react-native-video';
 import React, { useState, useEffect } from "react";
 import {
   Modal,
@@ -15,10 +16,10 @@ import { Camera } from "expo-camera";
 import { Button } from "react-native-paper";
 
 const CameraModule = (props) => {
-   const [cameraRef, setCameraRef] = useState(null);
-   const [type, setType] = useState(Camera.Constants.Type.back);
-   
-   return (
+  const [cameraRef, setCameraRef] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+
+  return (
     <Modal
       animationType="slide"
       transparent={true}
@@ -27,6 +28,7 @@ const CameraModule = (props) => {
         props.setModalVisible();
       }}
     >
+
       <Camera
         style={{ flex: 1 }}
         ratio="16:9"
@@ -58,12 +60,12 @@ const CameraModule = (props) => {
               mode="outlined"
               color="white"
               onPress={() => {
-              props.setModalVisible();
+                props.setModalVisible();
               }}
             >
-              Schliessen
+              schl.
             </Button>
-           <TouchableOpacity
+            <TouchableOpacity
               onPress={async () => {
                 if (cameraRef) {
                   let photo = await cameraRef.takePictureAsync();
@@ -98,7 +100,7 @@ const CameraModule = (props) => {
                 ></View>
               </View>
             </TouchableOpacity>
-       <Button
+            <Button
               icon="axis-z-rotate-clockwise"
               style={{ marginRight: 12 }}
               mode="outlined"
@@ -111,11 +113,12 @@ const CameraModule = (props) => {
                 );
               }}
             >
-           {type === Camera.Constants.Type.back ? "Vorne" : "Hinten "}
+              {type === Camera.Constants.Type.back ? "Vorne" : "Hinten "}
             </Button>
           </View>
         </View>
       </Camera>
+
     </Modal>
   );
 };
@@ -123,19 +126,19 @@ export default function ImagePickerExample() {
   const [image, setImage] = useState(null);
   const [camera, setShowCamera] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
-useEffect(() => {
+  useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
-if (hasPermission === null) {
+  if (hasPermission === null) {
     return <View />;
   }
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-return (
+  return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <View
         style={{
@@ -161,7 +164,7 @@ return (
       >
         Camera
       </Button>
-    {camera && (
+      {camera && (
         <CameraModule
           showModal={camera}
           setModalVisible={() => setShowCamera(false)}
